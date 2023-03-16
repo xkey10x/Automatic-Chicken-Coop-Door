@@ -1,0 +1,214 @@
+     ESP32             L293D
+     -----             -----
+       |                  |
+       |          1, 2   |    A+  (connect to one coil of the stepper motor)
+       |          3, 6   |    A-  (connect to the other coil of the stepper motor)
+       |          7     --    Vcc (connect to external power supply positive)
+       |          8     --    GND (connect to external power supply negative)
+       |          9, 10  |    B+  (connect to one coil of the stepper motor)
+       |          11, 14 |    B-  (connect to the other coil of the stepper motor)
+       |          16    --    Vcc (connect to external power supply positive)
+       |          4, 5   |    Enable (connect to ESP32 GPIO pins)
+       |                  |
+   Limit switch 1      Limit switch 2
+     -----             -----
+       |                  |
+       |                  |
+      ---                ---
+      / \                / \
+     |   |              |   |
+   Sunrise           Sunset
+
+   Override Button 1  Override Button 2
+     -----             -----
+       |                  |
+       |                  |
+      ---                ---
+      / \                / \
+     |   |              |   |
+   Direction 1      Direction 2
+   
+   
+   hERES A SHOT AT AN ELECTRICAL DIAGRAM USING TEXT:
+   
+                         Stepper
+                      Motor
+                        |
+   +--------------------+
+   |                    |
+   |                    |
+   |        +---+       |
+   |        |   |       |
+   |        |   |       |
+   |        | ESP32     |
+   |        |           |
+   |        |           |
+   |        +---+       |
+   |            |       |
+   |            |       |
+   |     Limit Switch 1 |
+   |            |       |
+   |            +-------+
+   |            |
+   |            |
+   |            +-------+
+   |            |       |
+   |     Limit Switch 2 |
+   |            |       |
+   |            +-------+
+   |            |
+   |            |
+   |  Override Button 1 |
+   |            |
+   |            |
+   |            +-------+
+   |            |       |
+   |         Direction 1 |
+   |            |       |
+   |            +-------+
+   |            |
+   |            |
+   |  Override Button 2 |
+   |            |
+   |            |
+   |            +-------+
+   |            |       |
+   |         Direction 2 |
+   |            |       |
+   |            +-------+
+   |                    |
+   |      L293D         |
+   |                    |
+   |     +------+       |
+   | 1,2 |      | A+    | (connect to one coil of the stepper motor)
+   | 3,6 |      | A-    | (connect to the other coil of the stepper motor)
+   | 7   |      | Vcc   | (connect to external power supply positive)
+   | 8   |      | GND   | (connect to external power supply negative)
+   | 9,10|      | B+    | (connect to one coil of the stepper motor)
+   |11,14|      | B-    | (connect to the other coil of the stepper motor)
+   | 16  |      | Vcc   | (connect to external power supply positive)
+   | 4,5
+
+HERES AN ATTEMPT AT A FRITZING.
+
+Note: This diagram assumes that the bipolar stepper motor is connected to the four motor driver outputs labeled M1, M2, M3, and M4.
+
+      ESP32
+     +------+
+     |      |
+     |  3V3 |<----+
+     |      |     |
+     +------+     |
+                   |
+                   |
+     +------+     |
+     |      |     |
+     |  GND |<----+
+     |      |
+     +------+
+
+
+     +------+     +------+
+     |      |     |      |
+     |  D2  |-----| IN1  |
+     |      |     |      |
+     +------+     +------+
+       ^              |
+       |              |
+     +-+-+            |
+     |   |            |
+     |   |            |
+     |   |            |
+     | M1|<-----------+
+     |   |
+     |   |
+     |   |
+     +-+-+
+
+     +------+     +------+
+     |      |     |      |
+     |  D3  |-----| IN2  |
+     |      |     |      |
+     +------+     +------+
+       ^              |
+       |              |
+     +-+-+            |
+     |   |            |
+     |   |            |
+     |   |            |
+     | M2|<-----------+
+     |   |
+     |   |
+     |   |
+     +-+-+
+
+     +------+     +------+
+     |      |     |      |
+     |  D4  |-----| IN3  |
+     |      |     |      |
+     +------+     +------+
+       ^              |
+       |              |
+     +-+-+            |
+     |   |            |
+     |   |            |
+     |   |            |
+     | M3|<-----------+
+     |   |
+     |   |
+     |   |
+     +-+-+
+
+     +------+     +------+
+     |      |     |      |
+     |  D5  |-----| IN4  |
+     |      |     |      |
+     +------+     +------+
+       ^              |
+       |              |
+     +-+-+            |
+     |   |            |
+     |   |            |
+     |   |            |
+     | M4|<-----------+
+     |   |
+     |   |
+     |   |
+     +-+-+
+
+     +------+     +------+
+     |      |     |      |
+     |  D6  |-----| ENA  |
+     |      |     |      |
+     +------+     +------+
+
+     +------+     +------+
+     |      |     |      |
+     |  D7  |-----| ENB  |
+     |      |     |      |
+     +------+     +------+
+
+     +------+     +------+
+     |      |     |      |
+     |  D8  |-----| SW1  |
+     |      |     |      |
+     +------+     +------+
+
+     +------+     +------+
+     |      |     |      |
+     |  D9  |-----| SW2  |
+     |      |     |      |
+     +------+     +------+
+
+     +------+     +------+
+     |      |     |      |
+     |  D10 |-----| SW3  |
+     |      |     |      |
+     +------+     +------+
+
+     +------+     +------+
+     |      |     |      |
+     |  D11 |-----| SW4  |
+     |      |     |      |
+     +------+     +------+
+
